@@ -4,7 +4,12 @@ function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
   source "$shome/script/profile"
 
-  uname -a
+  cd "$shome"
+  eval "$(vg eval --shell bash)"
+  vg init --full-isolation 
+  go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
+  mkdir -p "$shome/bin"
+  (set +f; ln -nfs $GOPATH/bin/ecr-login "$shome/bin/")
 }
 
 main "$@"
