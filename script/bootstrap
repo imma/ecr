@@ -9,7 +9,8 @@ function main {
   vg init --full-isolation 
   go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
   mkdir -p "$shome/bin"
-  (set +f; ln -nfs $GOPATH/bin/ecr-login "$shome/bin/")
+  rm -f "$shome/bin/ecr-login"
+  (set +f; ln -nfs $GOPATH/bin/docker-credential-ecr-login "$shome/bin/")
 }
 
 main "$@"
